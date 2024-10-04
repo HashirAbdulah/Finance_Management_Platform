@@ -1,0 +1,59 @@
+# Virtual Environment
+venv/
+env/
+
+# Python Cache Files
+__pycache__/
+*.py[cod]
+
+# Django Generated Files
+db.sqlite3
+*.log
+
+# VS Code Configurations
+.vscode/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Python Environment Variables
+*.env
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+*.pot
+
+# Local History for JetBrains IDEs
+.idea/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+*.cover
+
+# MyPy Cache
+.mypy_cache/
+
+# Static and Media Files
+/static/
+media/
+
+# Git Ignore
+*.swp
+*.swo
+*.bak
+
+# Miscellaneous
+*.tmp
+/
+
+# Virtual Environment
+.venv
+
