@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Salary List</h1>
+            <a href="{% url 'salary_create' %}" class="button is-primary">Add Salary</a>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Project</th>
+                        <th>Payment Type</th>
+                        <th>Amount</th>
+                        <th>Commission</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for salary in salaries %}
+                    <tr>
+                        <td>{{ salary.employee.username }}</td>
+                        <td>{{ salary.project.name }}</td>
+                        <td>{{ salary.payment_type.payment_frequency }}</td>
+                        <td>${{ salary.amount }}</td>
+                        <td>${{ salary.commission }}</td>
+                        <td>
+                            <a href="{% url 'salary_update' salary.pk %}" class="button is-warning is-small">Edit</a>
+                            <a href="{% url 'salary_delete' salary.pk %}" class="button is-danger is-small">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

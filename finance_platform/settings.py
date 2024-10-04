@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'projects',
     'employees',
-    # 'payments',
+    'payments',
 ]
 
 # EXTERNAL_APPS =[
