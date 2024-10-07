@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Expense List</h1>
+            <a href="{% url 'expense_create' %}" class="button is-primary">Add Expense</a>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Expense Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Employee</th>
+                        <th>Project</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.get_expense_type_display }}</td>
+                        <td>${{ expense.amount }}</td>
+                        <td>{{ expense.date }}</td>
+                        <td>{{ expense.employee }}</td>
+                        <td>{{ expense.project }}</td>
+                        <td>
+                            <a href="{% url 'expense_update' expense.pk %}" class="button is-small is-info">Edit</a>
+                            <a href="{% url 'expense_delete' expense.pk %}" class="button is-small is-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

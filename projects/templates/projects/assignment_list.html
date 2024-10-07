@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Assignment List</h1>
+            <a href="{% url 'assignment_create' %}" class="button is-primary is-light mb-4">Create New Assignment</a>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Project</th>
+                        <th>Role</th>
+                        <th>Assigned Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <td>
+                            {% if assignment.employee %}
+                                {{ assignment.employee.username }}
+                            {% else %}
+                                Unassigned
+                            {% endif %}
+                        </td>
+                        <td>{{ assignment.project.name }}</td>
+                        <td>{{ assignment.role }}</td>
+                        <td>{{ assignment.assigned_date }}</td>
+                        <td>{{ assignment.end_date }}</td>
+                        <td>{{ assignment.status }}</td>
+                        <td>
+                            <a href="{% url 'assignment_update' assignment.pk %}" class="button is-small is-info">Edit</a>
+                            <a href="{% url 'assignment_delete' assignment.pk %}" class="button is-small is-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

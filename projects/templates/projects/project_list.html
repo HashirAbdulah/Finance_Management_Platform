@@ -10,6 +10,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title">Project List</h1>
+            <a href="{% url 'project_create' %}" class="button is-primary">Create New Project</a>
             <table class="table is-striped is-fullwidth">
                 <thead>
                     <tr>
@@ -18,6 +19,7 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Description</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +30,10 @@
                         <td>{{ project.start_date }}</td>
                         <td>{{ project.end_date }}</td>
                         <td>{{ project.description }}</td>
+                        <td>
+                            <a href="{% url 'project_update' project.pk %}" class="button is-warning is-small">Edit</a>
+                            <a href="{% url 'project_delete' project.pk %}" class="button is-danger is-small">Delete</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

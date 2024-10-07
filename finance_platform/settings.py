@@ -40,14 +40,9 @@ INSTALLED_APPS = [
     'projects',
     'employees',
     'payments',
+    'expenses',
+    'reports',
 ]
-
-# EXTERNAL_APPS =[
-#     # 'expenses',
-#     # 'reports',
-#     # 'notifications',
-#     # 'audit_logs',
-# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

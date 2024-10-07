@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Assignment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Delete Assignment</h1>
+            <p>Are you sure you want to delete the assignment for "{{ assignment.employee.username if assignment.employee else 'Unassigned' }}" on "{{ assignment.project.name }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="button is-danger">Yes, delete</button>
+                <a href="{% url 'assignment_list' %}" class="button is-light">Cancel</a>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

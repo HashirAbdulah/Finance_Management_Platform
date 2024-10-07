@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Employee Form</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control">
+                        {{ form.first_name }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Role</label>
+                    <div class="control">
+                        {{ form.role }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Phone Number</label>
+                    <div class="control">
+                        {{ form.phone_number }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control">
+                        {{ form.address }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Skills</label>
+                    <div class="control">
+                        {{ form.skills }}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
