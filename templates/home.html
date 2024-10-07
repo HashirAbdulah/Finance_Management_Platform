@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Finance Management Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Finance Management Platform</h1>
+            <p>Welcome to the Finance Management Platform! Choose a module to navigate:</p>
+            <div class="buttons">
+                <a href="{% url 'project_list' %}" class="button is-link">Project Management</a>
+                <a href="{% url 'employee_list' %}" class="button is-link">Employee Management</a>
+                <a href="{% url 'dashboard_overview' %}" class="button is-link">Dashboard</a>
+                <a href="{% url 'payment_list' %}" class="button is-link">Payment Management</a>
+                <a href="{% url 'expense_list' %}" class="button is-link">Expense Management</a>
+                <a href="{% url 'income_expense_report' %}" class="button is-link">Reports</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

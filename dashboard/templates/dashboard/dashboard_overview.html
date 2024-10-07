@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Overview</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    {% load static %} <!-- This line loads the static template tag library -->
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Dashboard Overview</h1>
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <h2 class="subtitle">Total Projects</h2>
+                        <p>{{ total_projects }}</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="subtitle">Total Employees</h2>
+                        <p>{{ total_employees }}</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="subtitle">Total Expenses</h2>
+                        <p>{{ expense_total }}</p>
+                    </div>
+                </div>
+            </div>
+            <canvas id="expenseChart" width="400" height="200"></canvas>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'dashboard/js/dashboard_overview.js' %}"></script>
+    <script>
+        // Pass data from Django view to JavaScript
+        const projectsData = JSON.parse('{{ projects_data|escapejs }}');
+    </script>
+</body>
+</html>
