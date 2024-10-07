@@ -1,0 +1,53 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Payments Overview</h1>
+    
+    <h2>Salaries</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.employee.username }}</td>
+                <td>{{ salary.amount }}</td>
+                <td>{{ salary.date }}</td>
+                <td>
+                    <a href="{% url 'salary_update' salary.pk %}" class="btn btn-sm btn-info">Edit</a>
+                    <a href="{% url 'salary_delete' salary.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Payment History</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Amount</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payment_histories %}
+            <tr>
+                <td>{{ payment.employee.username }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.payment_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

@@ -1,25 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Finance Management Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Welcome to the Finance Management Platform</h1>
-            <p class="subtitle">Select a module to navigate:</p>
-            <ul>
-                <li><a href="{% url 'dashboard_overview' %}">Dashboard</a></li>
-                <li><a href="{% url 'project_list' %}">Projects</a></li>
-                <li><a href="{% url 'employee_list' %}">Employees</a></li>
-                <li><a href="{% url 'salary_list' %}">Payments</a></li>
-                <li><a href="{% url 'expense_list' %}">Expenses</a></li>
-                <li><a href="{% url 'income_expense_report' %}">Reports</a></li>
-            </ul>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Welcome to the Finance Management System</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="/dashboard/overview/" class="btn btn-info btn-lg btn-block">Dashboard</a>
         </div>
-    </section>
-</body>
-</html>
+        <div class="col-md-4">
+            <a href="/projects/" class="btn btn-primary btn-lg btn-block">Projects</a>
+        </div>
+        <div class="col-md-4">
+            <a href="/employees/" class="btn btn-secondary btn-lg btn-block">Employees</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <a href="/payments/" class="btn btn-success btn-lg btn-block">Payments</a>
+        </div>
+        <div class="col-md-4">
+            <a href="/expenses/" class="btn btn-danger btn-lg btn-block">Expenses</a>
+        </div>
+        <div class="col-md-4">
+            <a href="/reports/" class="btn btn-warning btn-lg btn-block">Reports</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

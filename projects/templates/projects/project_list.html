@@ -1,44 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Project List</h1>
-            <a href="{% url 'project_create' %}" class="button is-primary">Create New Project</a>
-            <table class="table is-striped is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Project Name</th>
-                        <th>Client Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for project in projects %}
-                    <tr>
-                        <td>{{ project.name }}</td>
-                        <td>{{ project.client_name }}</td>
-                        <td>{{ project.start_date }}</td>
-                        <td>{{ project.end_date }}</td>
-                        <td>{{ project.description }}</td>
-                        <td>
-                            <a href="{% url 'project_update' project.pk %}" class="button is-warning is-small">Edit</a>
-                            <a href="{% url 'project_delete' project.pk %}" class="button is-danger is-small">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
-</body>
-</html>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Project List</h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Client Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.client_name }}</td>
+                <td>{{ project.start_date }}</td>
+                <td>{{ project.end_date }}</td>
+                <td>{{ project.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

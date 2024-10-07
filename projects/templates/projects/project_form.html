@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ form.instance.pk|yesno:"Update Project,Create Project" }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">{{ form.instance.pk|yesno:"Update Project,Create Project" }}</h1>
-            <form method="post">
-                {% csrf_token %}
-                <div class="box">
-                    {{ form.as_p }}
-                </div>
-                <button type="submit" class="button is-primary">Save</button>
-                <a href="{% url 'project_list' %}" class="button is-light">Cancel</a>
-            </form>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Add a New Project</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name" class="form-label">Project Name</label>
+            {{ form.name|add_class:"form-control" }}
         </div>
-    </section>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="id_client_name" class="form-label">Client Name</label>
+            {{ form.client_name|add_class:"form-control" }}
+        </div>
+        <!-- Repeat for all fields in the form -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

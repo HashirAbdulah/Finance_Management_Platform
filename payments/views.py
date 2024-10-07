@@ -61,3 +61,12 @@ def payment_history_create(request):
     else:
         form = PaymentHistoryForm()
     return render(request, 'payments/payment_history_form.html', {'form': form})
+
+def payment_overview(request):
+    salaries = Salary.objects.all()
+    payment_histories = PaymentHistory.objects.all()
+    context = {
+        'salaries': salaries,
+        'payment_histories': payment_histories,
+    }
+    return render(request, 'payments/payment_overview.html', context)
