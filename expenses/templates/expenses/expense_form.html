@@ -3,19 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add/Edit Expense</title>
+    <title>{{ form.instance.pk|yesno:"Edit Expense,Add Expense" }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        /* Center the form and add spacing */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .field {
+            margin-bottom: 1.5rem;
+        }
+        .button {
+            margin-top: 1rem;
+        }
+        /* Styling for form fields */
+        input, select, textarea {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* Add padding to form section */
+        .section {
+            padding: 2rem 1.5rem;
+        }
+    </style>
 </head>
 <body>
     <section class="section">
-        <div class="container">
-            <h1 class="title">{{ form.instance.pk|yesno:"Edit Expense,Add Expense" }}</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="button is-primary">Save</button>
-                <a href="{% url 'expense_list' %}" class="button is-light">Cancel</a>
-            </form>
+        <div class="container form-container">
+            <div class="box">
+                <!-- Title for Add/Edit Expense -->
+                <h1 class="title has-text-centered">{{ form.instance.pk|yesno:"Edit Expense,Add Expense" }}</h1>
+                
+                <!-- Expense Form -->
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <!-- Render form fields dynamically -->
+                    <div class="field">
+                        {{ form.as_p }}
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Save</button>
+                        </div>
+                        <div class="control">
+                            <a href="{% url 'expense_list' %}" class="button is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
 </body>
