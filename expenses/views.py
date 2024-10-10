@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Expense
 from .forms import ExpenseForm
+from employees.models import CustomUser
+from projects.models import Project
 
 def expense_list(request):
     expenses = Expense.objects.all()
@@ -14,7 +16,16 @@ def expense_create(request):
             return redirect('expense_list')
     else:
         form = ExpenseForm()
-    return render(request, 'expenses/expense_form.html', {'form': form})
+
+    # Fetch all employees and projects to pass to the form
+    employees = CustomUser.objects.all()
+    projects = Project.objects.all()
+
+    return render(request, 'expenses/expense_form.html', {
+        'form': form,
+        'employees': employees,
+        'projects': projects,
+    })
 
 def expense_update(request, pk):
     expense = get_object_or_404(Expense, pk=pk)

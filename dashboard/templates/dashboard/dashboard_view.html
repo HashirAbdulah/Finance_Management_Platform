@@ -1,0 +1,21 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Detailed Dashboard</h1>
+
+    <div class="my-5">
+        <h3>Expense Chart for Projects</h3>
+        <canvas id="projectExpenseChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'dashboard/js/dashboard_view.js' %}"></script>
+<script>
+    // Pass data from Django view to JavaScript
+    const projectData = JSON.parse('{{ project_data_json|escapejs }}');
+</script>
+
+{% endblock %}

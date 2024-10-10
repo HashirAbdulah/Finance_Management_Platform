@@ -5,16 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirm Delete Expense</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        /* Centering the delete confirmation box */
+        .confirmation-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        /* Styling for the form and buttons */
+        .confirmation-box h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .confirmation-box p {
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .confirmation-box .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
     <section class="section">
-        <div class="container">
+        <div class="container confirmation-box">
             <h1 class="title">Confirm Delete Expense</h1>
             <p>Are you sure you want to delete the expense: <strong>{{ expense.expense_type }} - ${{ expense.amount }}</strong>?</p>
+            
+            <!-- Form for delete confirmation -->
             <form method="post">
                 {% csrf_token %}
-                <button type="submit" class="button is-danger">Delete</button>
-                <a href="{% url 'expense_list' %}" class="button is-light">Cancel</a>
+                <div class="buttons">
+                    <!-- Delete button -->
+                    <button type="submit" class="button is-danger">Delete</button>
+                    <!-- Cancel button -->
+                    <a href="{% url 'expense_list' %}" class="button is-light">Cancel</a>
+                </div>
             </form>
         </div>
     </section>

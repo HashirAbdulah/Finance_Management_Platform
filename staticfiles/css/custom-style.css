@@ -1,0 +1,229 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    color: #2a9d8f;
+}
+
+/* Buttons */
+button, .btn {
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #e76f51;
+    transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading Animations */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Notification and Alert System */
+.alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.alert.success {background-color: #4caf50;}
+.alert.info {background-color: #2196f3;}
+.alert.warning {background-color: #ff9800;}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    display: flex;
+    padding: 8px 15px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.breadcrumb a {
+    color: #2a9d8f;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar or Navbar */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #333;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .sidebar a {float: left;}
+}
+
+/* Chart Animations */
+.chart {
+    transition: all 0.5s ease-in-out;
+}
+
+.chart:hover {
+    transform: scale(1.1);
+}
+
+/* Dropdown Filters */
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: #4caf50;
+    height: 25px;
+    width: 0%;
+    transition: width 0.6s ease;
+}
+
+/* User Avatars */
+.avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/* Custom Icons and Badges */
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+}
+
+/* Hover Effects */
+.chart-hover {
+    transition: all 0.3s ease-in-out;
+}
+
+.chart-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Animated Transitions Between Pages */
+.fade-page {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Scrollable Data Tables */
+.table-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Status Indicators for Project */
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.status-active {background-color: #4caf50;}
+.status-inactive {background-color: #f44336;}
+.status-pending {background-color: #ff9800;}
+
