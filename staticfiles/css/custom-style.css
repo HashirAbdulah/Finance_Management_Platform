@@ -38,62 +38,37 @@ button:hover, .btn:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Loading Animations */
-.loader {
-    border: 4px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 4px solid #3498db;
-    width: 40px;
-    height: 40px;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Tooltips */
-.tooltip {
-    position: relative;
-    display: inline-block;
+.card {
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-body {
     text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+.card .icon {
+    font-size: 3rem;
+    color: #2a9d8f;
 }
 
-/* Notification and Alert System */
-.alert {
-    padding: 15px;
-    background-color: #f44336;
-    color: white;
-    margin-bottom: 20px;
-    border-radius: 4px;
+.card-title {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: #2a9d8f;
 }
 
-.alert.success {background-color: #4caf50;}
-.alert.info {background-color: #2196f3;}
-.alert.warning {background-color: #ff9800;}
+/* Input Focus Effect */
+.input:focus {
+    border-color: #2a9d8f;
+    box-shadow: 0 0 0 0.2rem rgba(42, 157, 143, 0.25);
+}
 
 /* Breadcrumb Navigation */
 .breadcrumb {
@@ -112,118 +87,23 @@ button:hover, .btn:hover {
     text-decoration: underline;
 }
 
-/* Sidebar or Navbar */
-.sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: #333;
-    padding-top: 20px;
-}
-
-.sidebar a {
-    padding: 15px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #fff;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #575757;
-}
-
-/* Responsive Layout */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    .sidebar a {float: left;}
-}
-
-/* Chart Animations */
-.chart {
-    transition: all 0.5s ease-in-out;
-}
-
-.chart:hover {
-    transform: scale(1.1);
-}
-
-/* Dropdown Filters */
-.dropdown-menu {
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-/* Progress Bars */
-.progress-bar {
-    background-color: #4caf50;
-    height: 25px;
-    width: 0%;
-    transition: width 0.6s ease;
-}
-
-/* User Avatars */
-.avatar {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-}
-
-/* Custom Icons and Badges */
-.badge {
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 12px;
-    color: #fff;
-    background-color: #3498db;
+input[type="text"], select, textarea {
+    padding: 10px;
     border-radius: 5px;
-}
-
-/* Hover Effects */
-.chart-hover {
-    transition: all 0.3s ease-in-out;
-}
-
-.chart-hover:hover {
-    transform: scale(1.05);
-}
-
-/* Animated Transitions Between Pages */
-.fade-page {
-    opacity: 0;
-    animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* Scrollable Data Tables */
-.table-container {
-    max-height: 400px;
-    overflow-y: scroll;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    transition: border-color 0.3s ease;
 }
 
-/* Status Indicators for Project */
-.status-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5px;
+input[type="text"]:focus, select:focus, textarea:focus {
+    border-color: #2a9d8f;
+    outline: none;
 }
 
-.status-active {background-color: #4caf50;}
-.status-inactive {background-color: #f44336;}
-.status-pending {background-color: #ff9800;}
-
+.footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #f4f7f6;
+    padding: 10px 0;
+}
