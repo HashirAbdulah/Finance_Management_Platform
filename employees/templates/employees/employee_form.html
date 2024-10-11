@@ -3,66 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Form</title>
+    {% load static %}
+    <title>Add/Edit Employee</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom-style.css' %}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Employee Form</h1>
-            <form method="post">
+            <h1 class="title">{{ form.instance.pk|yesno:"Edit Employee,Add Employee" }}</h1>
+            
+            <form method="POST" action="">
                 {% csrf_token %}
-                <div class="field">
-                    <label class="label">Username</label>
-                    <div class="control">
-                        {{ form.username }}
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        {{ form.email }}
-                    </div>
-                </div>
+
+                <!-- First Name Field -->
                 <div class="field">
                     <label class="label">First Name</label>
                     <div class="control">
-                        {{ form.first_name }}
+                        <input class="input" type="text" name="first_name" placeholder="Enter First Name" value="{{ form.first_name.value|default_if_none:'' }}" required>
                     </div>
                 </div>
+
+                <!-- Last Name Field -->
                 <div class="field">
                     <label class="label">Last Name</label>
                     <div class="control">
-                        {{ form.last_name }}
+                        <input class="input" type="text" name="last_name" placeholder="Enter Last Name" value="{{ form.last_name.value|default_if_none:'' }}" required>
                     </div>
                 </div>
+
+                <!-- Role Dropdown Field -->
                 <div class="field">
                     <label class="label">Role</label>
                     <div class="control">
-                        {{ form.role }}
+                        <div class="select">
+                            <select name="role" required>
+                                <option value="">Select Role</option>
+                                {% for value, label in form.role.field.choices %}
+                                    <option value="{{ value }}" {% if form.role.value == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Email Field -->
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input class="input" type="email" name="email" placeholder="Enter Email Address" value="{{ form.email.value|default_if_none:'' }}" required>
+                    </div>
+                </div>
+
+                <!-- Phone Number Field -->
                 <div class="field">
                     <label class="label">Phone Number</label>
                     <div class="control">
-                        {{ form.phone_number }}
+                        <input class="input" type="text" name="phone_number" placeholder="Enter Phone Number" value="{{ form.phone_number.value|default_if_none:'' }}">
                     </div>
                 </div>
+
+                <!-- Address Field -->
                 <div class="field">
                     <label class="label">Address</label>
                     <div class="control">
-                        {{ form.address }}
+                        <textarea class="textarea" name="address" placeholder="Enter Address">{{ form.address.value|default_if_none:'' }}</textarea>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">Skills</label>
+
+                <!-- Save and Cancel Buttons -->
+                <div class="field is-grouped">
                     <div class="control">
-                        {{ form.skills }}
+                        <button type="submit" class="button is-primary">
+                            <span class="icon"><i class="fas fa-save"></i></span>
+                            <span>Save</span>
+                        </button>
                     </div>
-                </div>
-                <div class="field">
                     <div class="control">
-                        <button type="submit" class="button is-primary">Save</button>
+                        <a href="{% url 'employee_list' %}" class="button is-light">
+                            <span class="icon"><i class="fas fa-times"></i></span>
+                            <span>Cancel</span>
+                        </a>
                     </div>
                 </div>
             </form>
