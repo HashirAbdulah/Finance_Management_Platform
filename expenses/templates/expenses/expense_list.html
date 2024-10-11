@@ -11,6 +11,10 @@
     <section class="section">
         <div class="container">
             <h1 class="title">Expense List</h1>
+            <a href="{% url 'home' %}" class="button is-primary is-small">
+                <span class="icon"><i class="fas fa-home"></i></span>
+                <span>Home</span>
+            </a>
             <a href="{% url 'expense_create' %}" class="button is-primary is-small">
                 <span class="icon"><i class="fas fa-plus"></i></span>
                 <span>Add Expense</span>
@@ -32,7 +36,7 @@
                         <td>{{ expense.get_expense_type_display }}</td>
                         <td>${{ expense.amount }}</td>
                         <td>{{ expense.date }}</td>
-                        <td>{{ expense.employee.first_name }} {{ expense.employee.last_name }}</td>
+                        <td>{{ expense.employee }}</td>
                         <td>{{ expense.project }}</td>
                         <td>
                             <a href="{% url 'expense_update' expense.pk %}" class="button is-small is-info">

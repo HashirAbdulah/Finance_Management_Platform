@@ -2,6 +2,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Assignment
 from .forms import ProjectForm, AssignmentForm
+from expenses.models import Expense
+
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    expenses = Expense.objects.filter(project=project)  # Fetch related expenses
+
+    context = {
+        'project': project,
+        'expenses': expenses,  # Add expenses to context
+    }
+    return render(request, 'projects/project_detail.html', context)
 
 # View to list all projects
 def project_list(request):

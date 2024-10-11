@@ -11,6 +11,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,9 @@
                 <td>{{ project.start_date }}</td>
                 <td>{{ project.end_date }}</td>
                 <td>{{ project.description }}</td>
+                <td>
+                    <a href="{% url 'project_detail' project.pk %}" class="button is-small is-info">View Details</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
