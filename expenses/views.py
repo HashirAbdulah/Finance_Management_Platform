@@ -29,6 +29,7 @@ def expense_create(request):
 
 def expense_update(request, pk):
     expense = get_object_or_404(Expense, pk=pk)
+
     if request.method == 'POST':
         form = ExpenseForm(request.POST, instance=expense)
         if form.is_valid():
@@ -36,7 +37,16 @@ def expense_update(request, pk):
             return redirect('expense_list')
     else:
         form = ExpenseForm(instance=expense)
-    return render(request, 'expenses/expense_form.html', {'form': form})
+
+    employees = CustomUser.objects.all()
+    projects = Project.objects.all()
+
+    return render(request, 'expenses/expense_form.html', {
+        'form': form,
+        'employees': employees,
+        'projects': projects,
+    })
+
 
 def expense_delete(request, pk):
     expense = get_object_or_404(Expense, pk=pk)

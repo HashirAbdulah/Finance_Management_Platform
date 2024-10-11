@@ -3,177 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense List</title>
+    <title>{{ form.instance.pk|yesno:"Edit Expense,Add Expense" }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .modal-card-body {
+            padding: 2rem;
+        }
+    </style>
 </head>
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Expense List</h1>
-            <a href="#" class="button is-primary" id="add-expense-btn">Add Expense</a>
-            <table class="table is-striped is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Expense Type</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Employee</th>
-                        <th>Project</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for expense in expenses %}
-                    <tr>
-                        <td>{{ expense.get_expense_type_display }}</td>
-                        <td>${{ expense.amount }}</td>
-                        <td>{{ expense.date }}</td>
-                        <td>{{ expense.employee }}</td>
-                        <td>{{ expense.project }}</td>
-                        <td>
-                            <button class="button is-small is-info edit-expense-btn" data-id="{{ expense.pk }}" data-expense='{{ expense|json_script:"expense" }}'>Edit</button>
-                            <button class="button is-small is-danger delete-expense-btn" data-id="{{ expense.pk }}">Delete</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <h1 class="title has-text-centered">{{ form.instance.pk|yesno:"Edit Expense,Add Expense" }}</h1>
+            <form method="post" id="expense-form">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Expense Type</label>
+                    <div class="control">
+                        <select name="expense_type" class="input">
+                            <option value="">Select Expense Type</option>
+                            {% for choice_value, choice_label in form.expense_type.field.choices %}
+                                <option value="{{ choice_value }}" {% if choice_value == form.expense_type.value %}selected{% endif %}>{{ choice_label }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="help">Choose the type of expense</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Amount</label>
+                    <div class="control">
+                        <input type="number" name="amount" class="input" value="{{ form.amount.value }}">
+                        <p class="help">Enter the expense amount in USD</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Employee</label>
+                    <div class="control">
+                        <select id="expense_employee" name="employee" class="input">
+                            {% for employee in employees %}
+                                <option value="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</option>
+                            {% endfor %}
+                        </select>                        
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Project</label>
+                    <div class="control">
+                        <select name="project" class="input">
+                            <option value="">Select Project</option>
+                            {% for project in projects %}
+                                <option value="{{ project.id }}" {% if project.id == form.project.value %}selected{% endif %}>{{ project.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <textarea name="description" class="textarea">{{ form.description.value }}</textarea>
+                        <p class="help">Describe the expense</p>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">
+                            <span class="icon"><i class="fas fa-save"></i></span>
+                            <span>Save</span>
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a href="{% url 'expense_list' %}" class="button is-light">
+                            <span class="icon"><i class="fas fa-times"></i></span>
+                            <span>Cancel</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
-
-    <!-- Add/Edit Expense Modal -->
-    <div class="modal" id="expense-modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title" id="modal-title">Add/Edit Expense</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <form id="expense-form" method="post">
-                    {% csrf_token %}
-                    <div class="field">
-                        <label class="label">Expense Type</label>
-                        <div class="control">
-                            <select id="expense_type" name="expense_type">
-                                <option value="travel">Travel</option>
-                                <option value="utilities">Utilities</option>
-                                <option value="supplies">Supplies</option>
-                                <option value="miscellaneous">Miscellaneous</option>
-                            </select>
-                        </div>
-                    </div>
-                
-                    <div class="field">
-                        <label class="label">Amount</label>
-                        <div class="control">
-                            <input type="number" id="expense_amount" name="amount" class="input" required>
-                        </div>
-                    </div>
-                
-                    <div class="field">
-                        <label class="label">Employee</label>
-                        <div class="control">
-                            <select id="expense_employee" name="employee" class="input">
-                                {% for employee in employees %}
-                                    <option value="{{ employee.id }}">{{ employee.username }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="field">
-                        <label class="label">Project</label>
-                        <div class="control">
-                            <select id="expense_project" name="project" class="input">
-                                {% for project in projects %}
-                                    <option value="{{ project.id }}">{{ project.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    
-                
-                    <div class="field">
-                        <label class="label">Description</label>
-                        <div class="control">
-                            <textarea id="expense_description" name="description" class="textarea"></textarea>
-                        </div>
-                    </div>
-                
-                    <div class="control">
-                        <button type="submit" class="button is-primary">Save</button>
-                    </div>
-                </form>
-                
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" id="save-expense-btn">Save</button>
-                <button class="button is-light close-modal-btn">Cancel</button>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Delete Expense Modal -->
-    <div class="modal" id="delete-modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Confirm Delete</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <p>Are you sure you want to delete this expense?</p>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-danger" id="confirm-delete-btn">Delete</button>
-                <button class="button is-light close-modal-btn">Cancel</button>
-            </footer>
-        </div>
-    </div>
-
-    <!-- JavaScript for handling modals -->
-    <script>
-        $(document).ready(function() {
-            // Show Add/Edit Modal
-            $('#add-expense-btn').click(function() {
-                $('#modal-title').text('Add Expense');
-                $('#expense-form').trigger('reset');
-                $('#expense-modal').addClass('is-active');
-            });
-
-            $('.edit-expense-btn').click(function() {
-                let expense = $(this).data('expense');
-                $('#modal-title').text('Edit Expense');
-                $('#expense_type').val(expense.expense_type);
-                $('#expense_amount').val(expense.amount);
-                $('#expense_employee').val(expense.employee);
-                $('#expense_project').val(expense.project);
-                $('#expense_description').val(expense.description);
-                $('#expense-modal').addClass('is-active');
-            });
-
-            $('.delete-expense-btn').click(function() {
-                $('#delete-modal').addClass('is-active');
-                $('#confirm-delete-btn').data('id', $(this).data('id'));
-            });
-
-            $('.delete, .close-modal-btn').click(function() {
-                $('.modal').removeClass('is-active');
-            });
-
-            $('#save-expense-btn').click(function() {
-                $('#expense-form').submit();
-            });
-
-            $('#confirm-delete-btn').click(function() {
-                let expenseId = $(this).data('id');
-                $.post(`/expenses/${expenseId}/delete/`, function() {
-                    location.reload();
-                });
-            });
-        });
-    </script>
 </body>
 </html>
