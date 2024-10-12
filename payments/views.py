@@ -1,9 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from .models import Salary, PaymentType
-from employees.models import CustomUser
+from .models import Salary
 from .models import PaymentHistory
-from projects.models import Project
 from .forms import SalaryForm, PaymentHistoryForm
 
 # View to list all salaries
