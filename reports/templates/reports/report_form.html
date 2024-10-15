@@ -1,0 +1,120 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4 text-center">
+        {% if report %}
+            Edit Report
+        {% else %}
+            Create Report
+        {% endif %}
+    </h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <!-- Employee Dropdown -->
+                <div class="form-group">
+                    <label for="employee" class="font-weight-bold">Employee</label>
+                    <select id="employee" name="employee" class="form-control" required>
+                        <option value="">-- Select Employee --</option>
+                        {% for employee in employees %}
+                        <option value="{{ employee.id }}" {% if report and report.employee == employee %}selected{% endif %}>
+                            {{ employee.first_name }} {{ employee.last_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select an employee.
+                    </div>
+                </div>
+
+                <!-- Project Dropdown -->
+                <div class="form-group">
+                    <label for="project" class="font-weight-bold">Project</label>
+                    <select id="project" name="project" class="form-control" required>
+                        <option value="">-- Select Project --</option>
+                        {% for project in projects %}
+                        <option value="{{ project.id }}" {% if report and report.project == project %}selected{% endif %}>
+                            {{ project.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a project.
+                    </div>
+                </div>
+
+                <!-- Expense Dropdown -->
+                <div class="form-group">
+                    <label for="expense" class="font-weight-bold">Expense</label>
+                    <select id="expense" name="expense" class="form-control" required>
+                        <option value="">-- Select Expense --</option>
+                        {% for expense in expenses %}
+                        <option value="{{ expense.id }}" {% if report and report.expense == expense %}selected{% endif %}>
+                            {{ expense.description }} - ${{ expense.amount }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select an expense.
+                    </div>
+                </div>
+
+                <!-- Report Title Field -->
+                <div class="form-group">
+                    <label for="title" class="font-weight-bold">Report Title</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Enter report title" value="{{ report.title|default:'' }}" required>
+                    <div class="invalid-feedback">
+                        Please enter a title for the report.
+                    </div>
+                </div>
+
+                <!-- Report Content Field -->
+                <div class="form-group">
+                    <label for="content" class="font-weight-bold">Content</label>
+                    <textarea id="content" name="content" class="form-control" rows="4" placeholder="Enter report content" required>{{ report.content|default:'' }}</textarea>
+                    <div class="invalid-feedback">
+                        Please enter the report content.
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <!-- Back Button -->
+                    <a href="{% url 'report_list' %}" class="btn btn-secondary">Back</a>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success">
+                        {% if report %}
+                            Update Report
+                        {% else %}
+                            Save Report
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap form validation script -->
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

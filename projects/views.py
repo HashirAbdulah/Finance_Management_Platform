@@ -4,43 +4,55 @@ from .models import Project, Assignment
 from .forms import ProjectForm, AssignmentForm
 from expenses.models import Expense
 
+
+def project_create_or_update(request, pk=None):
+    # Fetch project if pk is provided, else create a new one
+    project = get_object_or_404(Project, pk=pk) if pk else None
+
+    if request.method == 'POST':
+        # Initialize both forms with POST data
+        form = ProjectForm(request.POST, instance=project)
+        assignment_form = AssignmentForm(request.POST)
+
+        # Check if both forms are valid
+        if form.is_valid() and assignment_form.is_valid():
+            # Save the project first
+            new_project = form.save()
+
+            # Save the assignment but don't commit yet
+            new_assignment = assignment_form.save(commit=False)
+            new_assignment.project = new_project  # Attach the project to the assignment
+            new_assignment.save()  # Save the assignment
+
+            # Redirect to project list after successful submission (auto-close the form)
+            return redirect('project_list')
+        else:
+            print(form.errors, assignment_form.errors)  # Debugging: Check for validation errors
+    else:
+        # GET request: empty forms for new project or pre-filled forms for update
+        form = ProjectForm(instance=project)
+        assignment_form = AssignmentForm()
+
+    return render(request, 'projects/project_form.html', {
+        'form': form,
+        'assignment_form': assignment_form,
+    })
+
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    expenses = Expense.objects.filter(project=project)  # Fetch related expenses
+    expenses = Expense.objects.filter(project=project)
+    assignments = Assignment.objects.filter(project=project)
 
-    context = {
+    return render(request, 'projects/project_detail.html', {
         'project': project,
-        'expenses': expenses,  # Add expenses to context
-    }
-    return render(request, 'projects/project_detail.html', context)
+        'expenses': expenses,
+        'assignments': assignments,
+    })
 
 # View to list all projects
 def project_list(request):
     projects = Project.objects.all()
     return render(request, 'projects/project_list.html', {'projects': projects})
-
-# View to create a new project
-def project_create(request):
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('project_list')
-    else:
-        form = ProjectForm()
-    return render(request, 'projects/project_form.html', {'form': form})
-
-# View to update an existing project
-def project_update(request, pk):
-    project = get_object_or_404(Project, pk=pk)
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
-        if form.is_valid():
-            form.save()
-            return redirect('project_list')
-    else:
-        form = ProjectForm(instance=project)
-    return render(request, 'projects/project_form.html', {'form': form})
 
 # View to delete a project
 def project_delete(request, pk):

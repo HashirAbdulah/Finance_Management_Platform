@@ -1,19 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports Overview</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Reports Overview</h1>
-            <ul>
-                <li><a href="{% url 'income_expense_report' %}">Income and Expense Report</a></li>
-            </ul>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Reports Overview</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'report_list' %}" class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-list-alt fa-3x"></i>
+                    <h5 class="card-title mt-3">View All Reports</h5>
+                    <p class="card-text">View and manage all reports created in the system</p>
+                </div>
+            </a>
         </div>
-    </section>
-</body>
-</html>
+
+        <div class="col-md-4">
+            <a href="{% url 'report_create' %}" class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-plus fa-3x"></i>
+                    <h5 class="card-title mt-3">Create New Report</h5>
+                    <p class="card-text">Generate a new report based on available data</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'income_expense_report' %}" class="card shadow-lg">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x"></i>
+                    <h5 class="card-title mt-3">Income vs. Expenses</h5>
+                    <p class="card-text">View the income and expenses for your organization</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Optional: Adding hover effect through custom CSS -->
+<style>
+    .card:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
+</style>
+{% endblock %}

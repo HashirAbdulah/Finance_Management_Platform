@@ -1,13 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Income and Expense Report</title>
-</head>
-<body>
-    <h1>Income and Expense Report</h1>
-    <p>Total Income: ${{ total_income }}</p>
-    <p>Total Expenses: ${{ total_expenses }}</p>
-    <p>Net Balance: ${{ net_balance }}</p>
-    <p>Report Generated At: {{ report_generated_at }}</p>
-</body>
-</html>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Income vs. Expense Report</h1>
+
+    <!-- Date Range Filter Form -->
+    <form method="GET" action="{% url 'income_expense_report' %}" class="form-inline justify-content-center mb-5">
+        <div class="form-group mr-3">
+            <label for="start_date" class="mr-2">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+        </div>
+        <div class="form-group mr-3">
+            <label for="end_date" class="mr-2">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Report Summary Section -->
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Total Income</h5>
+                    <p class="card-text display-4">${{ total_income|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Total Expenses</h5>
+                    <p class="card-text display-4">${{ total_expenses|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title">Net Balance</h5>
+                    <p class="card-text display-4 text-{{ net_balance >= 0 ? 'success' : 'danger' }}">
+                        ${{ net_balance|floatformat:2 }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display the report generated timestamp -->
+    <div class="text-center mt-4">
+        <small>Report generated on: {{ report_generated_at }}</small>
+    </div>
+</div>
+{% endblock %}

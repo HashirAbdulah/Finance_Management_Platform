@@ -107,3 +107,42 @@ input[type="text"]:focus, select:focus, textarea:focus {
     background-color: #f4f7f6;
     padding: 10px 0;
 }
+
+/* For smaller devices, adjust the padding and font sizes */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1, h2, h3 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        font-size: 0.875rem;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+}
+
+
+/* Modal Customization */
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.form-control:focus {
+    border-color: #2a9d8f;
+    box-shadow: 0 0 0 0.2rem rgba(42, 157, 143, 0.25);
+}

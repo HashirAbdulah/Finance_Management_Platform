@@ -1,0 +1,14 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Delete Report</h1>
+    <p>Are you sure you want to delete the report "{{ report.title }}"?</p>
+    
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, delete</button>
+      <a href="{% url 'report_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

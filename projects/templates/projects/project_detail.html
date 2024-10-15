@@ -1,7 +1,6 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-
 <div class="container">
     <div class="card my-4">
         <div class="card-header">
@@ -19,6 +18,37 @@
                 </div>
             </div>
 
+            <!-- Project Status and Budget Row -->
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <h5 class="subtitle">Project Status</h5>
+                    <p>
+                        <span class="badge 
+                            {% if project.status == 'active' %}
+                                bg-success
+                            {% elif project.status == 'pending' %}
+                                bg-warning
+                            {% elif project.status == 'completed' %}
+                                bg-primary
+                            {% endif %}">
+                            {{ project.status|title }}
+                        </span>
+                    </p>
+                </div>
+
+                <!-- Project Budget -->
+                <div class="col-md-6">
+                    <h5 class="subtitle">Project Budget</h5>
+                    <p>
+                        {% if project.budget %}
+                            ${{ project.budget }}
+                        {% else %}
+                            $0.00
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
             <div class="row my-4">
                 <div class="col-md-12">
                     <h5 class="subtitle">Project Description</h5>
@@ -26,6 +56,7 @@
                 </div>
             </div>
 
+            <!-- Associated Expenses -->
             <div class="row">
                 <div class="col-md-12">
                     <h5 class="subtitle">Associated Expenses</h5>
@@ -44,26 +75,58 @@
                                 <td>{{ expense.get_expense_type_display }}</td>
                                 <td>${{ expense.amount }}</td>
                                 <td>{{ expense.date }}</td>
-                                <td>{{ expense.employee.first_name }} {{ expense.employee.last_name }}</td> <!-- Use first name and last name -->
+                                <td>{{ expense.employee.first_name }} {{ expense.employee.last_name }}</td>
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="4" class="has-text-centered">No expenses found for this project.</td>
+                                <td colspan="4" class="text-center">No expenses found for this project.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <!-- Assigned Employees Section -->
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <h5 class="subtitle">Assigned Employees</h5>
+                    <table class="table table-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Role</th>
+                                <th>Assigned Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for assignment in assignments %}
+                            <tr>
+                                <td>{{ assignment.employee.first_name }} {{ assignment.employee.last_name }}</td>
+                                <td>{{ assignment.role }}</td>
+                                <td>{{ assignment.assigned_date }}</td>
+                                <td>{{ assignment.end_date }}</td>
+                                <td>{{ assignment.status }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No employees assigned to this project.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="buttons mt-4">
-                <a href="{% url 'project_list' %}" class="button is-primary is-small">
+                <a href="{% url 'project_list' %}" class="btn btn-primary">
                     <span class="icon"><i class="fas fa-arrow-left"></i></span>
                     <span>Back to Project List</span>
                 </a>
-
-            </div>            
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

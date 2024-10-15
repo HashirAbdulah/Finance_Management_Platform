@@ -1,0 +1,92 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Reports</h1>
+
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Created By</th>
+              <th>Project</th>
+              <th>Employee</th>
+              <th>Expense</th>
+              <th>Date Created</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for report in reports %}
+          <tr>
+              <td>{{ report.title }}</td>
+              <td>{{ report.created_by }}</td>
+              <td>{{ report.project.name }}</td>  <!-- Show project name -->
+              <td>{{ report.employee.first_name }} {{ report.employee.last_name }}</td> <!-- Show employee name -->
+              <td>{{ report.expense.description }}</td>  <!-- Show expense description -->
+              <td>{{ report.date_created }}</td>
+              <td>
+                  <a href="{% url 'report_edit' report.pk %}" class="btn btn-info btn-sm mb-2">Edit</a>
+                  <a href="{% url 'report_delete' report.pk %}" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+          </tr>
+          {% empty %}
+          <tr>
+              <td colspan="7">No reports found</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  
+
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{% url 'report_create' %}" class="btn" style="background-color: #00d1b2; color: white;">Add New Report</a>
+        <a href="{% url 'export_reports_csv' %}" class="btn" style="background-color: #00d1b2; color: white;">Export to CSV</a>
+    </div>
+</div>
+
+<!-- JavaScript for inline editing -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editables = document.querySelectorAll('.editable');
+        const inputs = document.querySelectorAll('.edit-input');
+
+        editables.forEach(editable => {
+            editable.addEventListener('click', function () {
+                this.style.display = 'none';
+                const input = document.querySelector(`input[data-id='${this.dataset.id}']`);
+                input.style.display = 'block';
+                input.focus();
+            });
+        });
+
+        inputs.forEach(input => {
+            input.addEventListener('blur', function () {
+                const title = this.value;
+                const reportId = this.dataset.id;
+                
+                // Send AJAX request to update the report
+                fetch(`/reports/update/${reportId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title: title }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const span = document.querySelector(`span[data-id='${reportId}']`);
+                        span.textContent = title;
+                        span.style.display = 'block';
+                        this.style.display = 'none';
+                    } else {
+                        alert('Error updating the report.');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -2,19 +2,80 @@
 
 {% block content %}
 <div class="container">
-    <h2 class="my-4">Add a New Project</h2>
-    <form method="post" novalidate>
+    <h2>{{ form.instance.pk|yesno:"Update Project,Add a New Project" }}</h2>
+
+    <!-- Form starts here -->
+    <form method="post">
         {% csrf_token %}
+        
+        <!-- Project Name Field -->
         <div class="mb-3">
             <label for="id_name" class="form-label">Project Name</label>
-            {{ form.name|add_class:"form-control" }}
+            {{ form.name }}
         </div>
+
+        <!-- Client Name Field -->
         <div class="mb-3">
             <label for="id_client_name" class="form-label">Client Name</label>
-            {{ form.client_name|add_class:"form-control" }}
+            {{ form.client_name }}
         </div>
-        <!-- Repeat for all fields in the form -->
+
+        <!-- Project Description Field -->
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Project Description</label>
+            {{ form.description }}
+        </div>
+
+        <!-- Start Date Field -->
+        <div class="mb-3">
+            <label for="id_start_date" class="form-label">Start Date</label>
+            {{ form.start_date }}
+        </div>
+
+        <!-- End Date Field -->
+        <div class="mb-3">
+            <label for="id_end_date" class="form-label">End Date</label>
+            {{ form.end_date }}
+        </div>
+
+        <!-- Budget Field -->
+        <div class="mb-3">
+            <label for="id_budget" class="form-label">Budget</label>
+            {{ form.budget }}
+        </div>
+
+        <!-- Project Status Field -->
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Project Status</label>
+            {{ form.status }}
+        </div>
+
+        <!-- Employee Assignment Section -->
+        <h3>Assign Employee to Project</h3>
+        <div class="mb-3">
+            <label for="id_employee" class="form-label">Employee</label>
+            {{ assignment_form.employee }}
+        </div>
+        <div class="mb-3">
+            <label for="id_role" class="form-label">Role</label>
+            {{ assignment_form.role }}
+        </div>
+        <div class="mb-3">
+            <label for="id_assigned_date" class="form-label">Assigned Date</label>
+            {{ assignment_form.assigned_date }}
+        </div>
+        <div class="mb-3">
+            <label for="id_end_date" class="form-label">End Date</label>
+            {{ assignment_form.end_date }}
+        </div>
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Assignment Status</label>
+            {{ assignment_form.status }}
+        </div>
+
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
 </div>
 {% endblock %}

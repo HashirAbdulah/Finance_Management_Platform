@@ -1,153 +1,152 @@
-{% extends "home/base.html" %}
-
-{% block content %}
+{% extends "home/base.html" %} {% block content %}
 <style>
-    body {
-  background-color: #f7f8fa;
-}
+  body {
+    background-color: #f7f8fa;
+  }
 
-.card-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.custom-card {
-  border: none;
-  border-radius: 15px;
-  overflow: hidden;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  text-align: center;
-  cursor: pointer;
-}
-
-.custom-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.custom-card .card-body {
-  padding: 2rem;
-}
-
-.custom-card .icon {
-  display: block;
-  color: #00aaff;
-  transition: color 0.3s ease-in-out;
-}
-
-.custom-card:hover .icon {
-  color: #0066cc;
-}
-
-.custom-card .card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 1rem;
-}
-
-.custom-card .card-text {
-  font-size: 1rem;
-  color: #6c757d;
-}
-
-@media (max-width: 768px) {
   .card-container {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .custom-card {
-    margin-bottom: 1.5rem;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    cursor: pointer;
   }
-}
 
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+  .custom-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
 
-.col-md-4 {
-  flex: 1;
-  min-width: 250px;
-  max-width: 300px;
-}
+  .custom-card .card-body {
+    padding: 2rem;
+  }
 
+  .custom-card .icon {
+    display: block;
+    color: #00aaff;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .custom-card:hover .icon {
+    color: #0066cc;
+  }
+
+  .custom-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  .custom-card .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      flex-direction: column;
+    }
+
+    .custom-card {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .col-md-4 {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+  }
 </style>
 <div class="container">
-    <h1 class="my-4 text-center">Welcome to the Finance Management System</h1>
+  <h1 class="my-4 text-center">Welcome to the Finance Management System</h1>
 
-    <div class="row justify-content-center">
-        <!-- Dashboard Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/dashboard/overview/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-chart-line fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Dashboard</h5>
-                    <p class="card-text">View system overview and Dashboard</p>
-                </div>
-            </a>
+  <div class="row justify-content-center">
+    <!-- Dashboard Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/dashboard/overview/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"><i class="fas fa-chart-line fa-3x"></i></span>
+          <h5 class="card-title mt-3">Dashboard</h5>
+          <p class="card-text">View system overview and Dashboard</p>
         </div>
-
-        <!-- Projects Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/projects/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-project-diagram fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Projects</h5>
-                    <p class="card-text">Manage all your projects</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Employees Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/employees/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-users fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Employees</h5>
-                    <p class="card-text">View and manage employees</p>
-                </div>
-            </a>
-        </div>
+      </a>
     </div>
 
-    <div class="row justify-content-center mt-4">
-        <!-- Payments Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/payments/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-credit-card fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Payments</h5>
-                    <p class="card-text">Manage payment information</p>
-                </div>
-            </a>
+    <!-- Projects Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/projects/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"><i class="fas fa-project-diagram fa-3x"></i></span>
+          <h5 class="card-title mt-3">Projects</h5>
+          <p class="card-text">Manage all your projects</p>
         </div>
-
-        <!-- Expenses Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/expenses/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-file-invoice-dollar fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Expenses</h5>
-                    <p class="card-text">Track and view expenses</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Reports Card -->
-        <div class="col-md-4 mb-4">
-            <a href="/reports/" class="card custom-card">
-                <div class="card-body text-center">
-                    <span class="icon"><i class="fas fa-chart-bar fa-3x"></i></span>
-                    <h5 class="card-title mt-3">Reports</h5>
-                    <p class="card-text">View reports and analytics</p>
-                </div>
-            </a>
-        </div>
+      </a>
     </div>
+
+    <!-- Employees Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/employees/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"><i class="fas fa-users fa-3x"></i></span>
+          <h5 class="card-title mt-3">Employees</h5>
+          <p class="card-text">View and manage employees</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <!-- Expenses Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/expenses/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"
+            ><i class="fas fa-file-invoice-dollar fa-3x"></i
+          ></span>
+          <h5 class="card-title mt-3">Expenses</h5>
+          <p class="card-text">Track and view expenses</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Payments Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/payments/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"><i class="fas fa-credit-card fa-3x"></i></span>
+          <h5 class="card-title mt-3">Payments</h5>
+          <p class="card-text">Manage payment information</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Reports Card -->
+    <div class="col-md-4 mb-4">
+      <a href="/reports/" class="card custom-card">
+        <div class="card-body text-center">
+          <span class="icon"><i class="fas fa-chart-bar fa-3x"></i></span>
+          <h5 class="card-title mt-3">Reports</h5>
+          <p class="card-text">View reports and analytics</p>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock %}
