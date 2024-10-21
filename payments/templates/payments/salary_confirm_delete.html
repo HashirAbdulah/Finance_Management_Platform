@@ -9,13 +9,17 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Delete Salary</h1>
-            <p>Are you sure you want to delete the salary for {{ salary.employee.username }}?</p>
-            <form method="post">
-                {% csrf_token %}
-                <button type="submit" class="button is-danger">Delete</button>
-                <a href="{% url 'salary_list' %}" class="button">Cancel</a>
-            </form>
+            <div class="box">
+                <h1 class="title is-4 has-text-danger">Delete Salary</h1>
+                <p>Are you sure you want to delete the salary for <strong>{{ salary.employee.username }}</strong>?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="buttons mt-4">
+                        <button type="submit" class="button is-danger">Delete</button>
+                        <a href="{% url 'salary_list' %}" class="button is-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
 </body>

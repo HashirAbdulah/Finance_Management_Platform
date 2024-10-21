@@ -1,21 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salary Form</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Add/Edit Salary</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="button is-primary">Save</button>
-            </form>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">
+        {% if editing %}
+            Edit Salary
+        {% else %}
+            Add Salary
+        {% endif %}
+    </h1>
+
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <!-- Conditionally render the employee dropdown only when adding a new salary -->
+        {% if not editing %}
+        <div class="form-group">
+            <label for="employee">Employee</label>
+            <select id="employee" name="employee" class="form-control" required>
+                <option value="">-- Select Employee --</option>
+                {% for employee in employees %}
+                <option value="{{ employee.id }}" {% if employee.id == selected_employee %}selected{% endif %}>
+                    {{ employee.first_name }} {{ employee.last_name }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Please select an employee.
+            </div>
         </div>
-    </section>
-</body>
-</html>
+        {% endif %}
+
+        <!-- Payment Type Dropdown -->
+        <div class="form-group">
+            <label for="payment_type">Payment Type</label>
+            <select id="payment_type" name="payment_type" class="form-control" required>
+                <option value="">-- Select Payment Type --</option>
+                {% for payment_type in payment_types %}
+                <option value="{{ payment_type.id }}" {% if payment_type.id == selected_payment_type %}selected{% endif %}>
+                    {{ payment_type.payment_frequency }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Please select a payment type.
+            </div>
+        </div>
+
+        <!-- Amount Field -->
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter amount" value="{{ form.amount.value }}" step="0.01" required>
+            <div class="invalid-feedback">
+                Please enter a valid amount.
+            </div>
+        </div>
+
+        <!-- Commission Field -->
+        <div class="form-group">
+            <label for="commission">Commission (%)</label>
+            <input type="number" id="commission" name="commission" class="form-control" placeholder="Enter commission (optional)" value="{{ form.commission.value }}">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<!-- Bootstrap form validation script -->
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="title">Add Payment</h1>
+
+    <!-- Success and Error Feedback -->
+    {% if messages %}
+        <div class="alert alert-success">
+            {{ messages }}
+        </div>
+    {% endif %}
+
+    <form id="paymentForm" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label for="employee" class="label">Employee</label>
+            <div class="control">
+                <select name="employee" id="employee" class="input">
+                    <option value="">-- Select Employee --</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</option>
+                    {% endfor %}
+                </select>
+                <p id="employeeError" class="help is-danger"></p> <!-- Error for employee -->
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="amount" class="label">Amount</label>
+            <div class="control">
+                <input type="number" name="amount" id="amount" class="input" placeholder="Enter payment amount">
+                <p id="amountError" class="help is-danger"></p> <!-- Error for amount -->
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="payment_date" class="label">Payment Date</label>
+            <div class="control">
+                <input type="date" name="payment_date" id="payment_date" class="input">
+                <p id="dateError" class="help is-danger"></p> <!-- Error for date -->
+            </div>
+        </div>
+
+        <div class="control">
+            <button type="submit" class="button is-primary">Submit Payment</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.getElementById("paymentForm").addEventListener("submit", function(event) {
+    let isValid = true;
+
+    // Employee Validation
+    const employee = document.getElementById("employee");
+    const employeeError = document.getElementById("employeeError");
+    if (employee.value === "") {
+        employeeError.textContent = "Please select an employee.";
+        isValid = false;
+    } else {
+        employeeError.textContent = "";
+    }
+
+    // Amount Validation
+    const amount = document.getElementById("amount");
+    const amountError = document.getElementById("amountError");
+    if (amount.value === "" || amount.value <= 0) {
+        amountError.textContent = "Please enter a valid payment amount.";
+        isValid = false;
+    } else {
+        amountError.textContent = "";
+    }
+
+    // Date Validation
+    const paymentDate = document.getElementById("payment_date");
+    const dateError = document.getElementById("dateError");
+    if (paymentDate.value === "") {
+        dateError.textContent = "Please select a payment date.";
+        isValid = false;
+    } else {
+        dateError.textContent = "";
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
+
+{% endblock %}

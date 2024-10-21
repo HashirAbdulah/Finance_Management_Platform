@@ -1,21 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Payment History</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-</head>
-<body>
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Add Payment History</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="button is-primary">Save</button>
-            </form>
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Add/Edit Payment History</h1>
+
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="employee">Employee</label>
+            <select id="employee" name="employee" class="form-control" required>
+                <option value="">-- Select Employee --</option>
+                {% for employee in employees %}
+                <option value="{{ employee.id }}" {% if employee.id == form.employee.value %}selected{% endif %}>
+                    {{ employee.first_name }} {{ employee.last_name }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Please select an employee.
+            </div>
         </div>
-    </section>
-</body>
-</html>
+
+        <div class="form-group">
+            <label for="project">Project</label>
+            <select id="project" name="project" class="form-control" required>
+                <option value="">-- Select Project --</option>
+                {% for project in projects %}
+                <option value="{{ project.id }}" {% if project.id == form.project.value %}selected{% endif %}>
+                    {{ project.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Please select a project.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="payment_type">Payment Type</label>
+            <select id="payment_type" name="payment_type" class="form-control" required>
+                <option value="">-- Select Payment Type --</option>
+                <option value="monthly" {% if form.payment_type.value == 'monthly' %}selected{% endif %}>Monthly</option>
+                <option value="hourly" {% if form.payment_type.value == 'hourly' %}selected{% endif %}>Hourly</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a payment type.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="amount_paid">Amount Paid</label>
+            <input type="number" id="amount_paid" name="amount_paid" class="form-control" placeholder="Enter amount paid" value="{{ form.amount_paid.value }}" required>
+            <div class="invalid-feedback">
+                Please enter a valid amount.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" class="form-control" required>
+                <option value="Paid" {% if form.status.value == 'Paid' %}selected{% endif %}>Paid</option>
+                <option value="Pending" {% if form.status.value == 'Pending' %}selected{% endif %}>Pending</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a status.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<!-- Bootstrap form validation script -->
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

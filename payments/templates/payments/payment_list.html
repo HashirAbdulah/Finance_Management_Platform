@@ -1,0 +1,39 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="title">Payment List</h1>
+
+    <!-- Feedback for form actions (success or error) -->
+    {% if messages %}
+        <div class="alert alert-success">
+            {{ messages }}
+        </div>
+    {% endif %}
+
+    <table class="table is-striped is-fullwidth">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Amount</th>
+                <th>Payment Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.employee.first_name }} {{ payment.employee.last_name }}</td>
+                <td>${{ payment.amount }}</td>
+                <td>{{ payment.payment_date }}</td>
+                <td>
+                    <!-- Inline Edit and Delete Buttons -->
+                    <a href="{% url 'payment_update' payment.pk %}" class="button is-small is-info">Edit</a>
+                    <a href="{% url 'payment_delete' payment.pk %}" class="button is-small is-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

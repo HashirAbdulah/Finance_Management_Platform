@@ -41,4 +41,4 @@ class PaymentHistory(models.Model):
     status = models.CharField(max_length=20, choices=[('Paid', 'Paid'), ('Pending', 'Pending')])
 
     def __str__(self):
-        return f"{self.employee.username} - {self.amount_paid} on {self.payment_date}"
+        return f"{self.employee.first_name} {self.employee.last_name} - {self.amount_paid} on {self.payment_date}"
